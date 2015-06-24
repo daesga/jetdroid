@@ -1,0 +1,84 @@
+# Introduction #
+
+This sequence of code is executed by the original bootloader presumably  to init the DRAM controller.
+
+```
+0x021C LDR R0, =0x7E001000 ; load DRAM CONTROLLER STATUS REGISTER base adress in R0 
+0x0220 MOV R1, #4 
+0x0224 STR R1, [R0,#4] ; Store #4 in P1MEMCCMD (Config Mode) 
+0x0228 MOV R1, #0x208 
+0x022C STR R1, [R0,#0x10] ; Store 0x208 to REFRESH PERIOD REGISTER (Refresh timing = 208 cycles) 
+0x0230 MOV R1, #6 
+0x0234 STR R1, [R0,#0x14] ; Store #6 to CAS LATENCY REGISTER (reset value) 
+0x0238 MOV R1, #1 
+0x023C STR R1, [R0,#0x18] ; Store #1 to T_DQSS REGISTER (Reset Value) 
+0x0240 MOV R1, #2 
+0x0244 STR R1, [R0,#0x1C] ; Store #2 to T_MRD REGISTER (Reset Value) 
+0x0248 MOV R1, #7 
+0x024C STR R1, [R0,#0x20] ; Store #7 to T_RAS REGISTER (Reset Value) 
+0x0250 MOV R1, #9 
+0x0254 STR R1, [R0,#0x24] ; Store #9 to T_RC REGISTER (defines bank to bank delay in clk cycles) 
+0x0258 MOV R1, #3 
+0x025C MOV R2, #0 
+0x0260 ORR R1, R1, R2 
+0x0264 STR R1, [R0,#0x28] 
+0x0268 MOV R1, #0x11 
+0x026C MOV R2, #0x1C0 
+0x0270 ORR R1, R1, R2 
+0x0274 STR R1, [R0,#0x2C] 
+0x0278 MOV R1, #3 
+0x027C MOV R2, #0 
+0x0280 ORR R1, R1, R2 
+0x0284 STR R1, [R0,#0x30] 
+0x0288 MOV R1, #3 
+0x028C STR R1, [R0,#0x34] 
+0x0290 MOV R1, #3 
+0x0294 STR R1, [R0,#0x38] 
+0x0298 MOV R1, #2 
+0x029C STR R1, [R0,#0x3C] 
+0x02A0 MOV R1, #2 
+0x02A4 STR R1, [R0,#0x40] 
+0x02A8 MOV R1, #0x11 
+0x02AC STR R1, [R0,#0x44] 
+0x02B0 MOV R1, #0x11 
+0x02B4 STR R1, [R0,#0x48] 
+0x02B8 LDR R1, =0x40224019 
+0x02BC STR R1, [R0,#0xC] 
+0x02C0 LDR R1, =dword_B41 ; Load 0x5CE28EE0??? in R1 
+0x02C4 STR R1, [R0,#0x4C] ; Store 0x5CE28EE0??? to MEMORY CONFIGURATION 2 REGISTER 
+0x02C8 LDR R1, =loc_150F8 
+0x02CC STR R1, [R0,#0x200] 
+0x02D0 LDR R1, =loc_158F8 
+0x02D4 STR R1, [R0,#0x204] 
+0x02D8 MOV R1, #0 0x02DC 
+0x02DC STR R1, [R0,#0x304] 
+0x02E0 MOV R1, #0xC0000 
+0x02E4 STR R1, [R0,#8] 
+0x02E8 MOV R1, #0 
+0x02EC STR R1, [R0,#8] 
+0x02F0 MOV R1, #loc_40000 
+0x02F4 STR R1, [R0,#8] 
+0x02F8 STR R1, [R0,#8] 
+0x02FC MOV R1, #0xA0000 
+0x0300 STR R1, [R0,#8] 
+0x0304 LDR R1, =0x80034 
+0x0308 STR R1, [R0,#8] 
+0x030C MOV R1, #0x1C0000 
+0x0310 STR R1, [R0,#8] 
+0x0314 MOV R1, #0x100000 
+0x0318 STR R1, [R0,#8] 
+0x031C MOV R1, #0x140000 
+0x0320 STR R1, [R0,#8] 
+0x0324 STR R1, [R0,#8] 
+0x0328 MOV R1, #0x1A0000 
+0x032C STR R1, [R0,#8] 
+0x0330 LDR R1, =0x180034 
+0x0334 STR R1, [R0,#8] 
+0x0338 MOV R1, #0 
+0x033C STR R1, [R0,#4] 
+0x0340 LDR R1, [R0] 0x0344 MOV R2, #3 
+0x0348 AND R1, R1, R2 0x034C CMP R1, #1 
+0x0350 BNE loc_340 
+0x0354 NOP 
+0x0358 RET
+```

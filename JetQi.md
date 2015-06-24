@@ -1,0 +1,1 @@
+As the JetDroid bootloader is derived from the Qi bootloader from the Openmoko project it is just called JetQi. For more information on the bootloader please refer to the JetBootloader page.
